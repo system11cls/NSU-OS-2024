@@ -11,12 +11,13 @@ data d1;
 
 void* func(void *param) {
 	
+
 	printf("%s\n", param);
-	
 
 	return NULL;
 }
 
+char st[] = "abcd";
 
 int main() {
 	pthread_t thread1, thread2, thread3, thread4;
@@ -28,7 +29,7 @@ int main() {
 	d1.strs = strs1;
 	d1.cnt = 4;
 
-	res = pthread_create(&thread1, NULL, func, "abc");
+	res = pthread_create(&thread1, NULL, func, st);
 	if (res != 0) {
 		perror("create 1 error");
 		exit(1);
