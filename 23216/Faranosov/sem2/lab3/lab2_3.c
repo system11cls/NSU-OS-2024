@@ -17,7 +17,7 @@ void* func(void *param) {
 	return NULL;
 }
 
-char st[][] = { "abcd", "abc"};
+char st[2][5] = {"abcd", "abc"};
 
 int main() {
 	pthread_t thread1, thread2, thread3, thread4;
