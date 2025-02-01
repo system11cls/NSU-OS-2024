@@ -13,20 +13,24 @@ data d1;
 void* func(void *param) {
 	
 	data* d = param;
-	printf("%s\n", d->strs[0]);
+	for (int i = 0; i < d->cnt; i++) {
+		printf("%s\n", d->strs[i]);
+	}
 
 	return NULL;
 }
 
 
-const char* strs1[4] = { "1", "2", "3", "4" };
-
 int main() {
 	pthread_t thread1;
 	int res;
 
-	strcpy(d1.strs[0], "a");
 	d1.cnt = 4;
+	strcpy(d1.strs[0], "a");
+	strcpy(d1.strs[1], "b");
+	strcpy(d1.strs[2], "c");
+	strcpy(d1.strs[3], "d");
+	
 
 
 	res = pthread_create(&thread1, NULL, func, &d1);
