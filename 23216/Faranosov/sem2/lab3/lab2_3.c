@@ -11,13 +11,13 @@ data d1;
 
 void* func(void *param) {
 	
-
-	printf("%s\n", param);
+	char st[][] = param;
+	printf("%s\n", st[0]);
 
 	return NULL;
 }
 
-char st[] = "abcd";
+char st[][] = { "abcd", "abc"};
 
 int main() {
 	pthread_t thread1, thread2, thread3, thread4;
