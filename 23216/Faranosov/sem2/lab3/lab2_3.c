@@ -2,28 +2,35 @@
 #include "stdlib.h"
 #include "pthread.h"
 
+typedef struct data {
+	char** strs;
+	int cnt;
+} data;
+
+data d1;
+
 void* func(void *param) {
 	int it = 0;
-	char** strs = param;
-	for (int i = 0; i < 4; i++) {
-		printf("%s\n", strs[i]);
+	data* d = param;
+	for (int i = 0; i < d->cnt; i++) {
+		printf("%s\n", d->strs[i]);
 	}
 
 	return NULL;
 }
 
 
-
 int main() {
 	pthread_t thread1, thread2, thread3, thread4;
 	int res;
 
-	char strs1[4][3] = { "1", "2", "3", "4"};
-	char strs2[4][10] = { "Hi", "to", "everyone", "here"};
-	char strs3[4][4] = { "00", "01", "10", "11"};
-	char strs4[4][2] = { "a", "b", "c", "d"};
+	const char strs1[4][3] = { "1", "2", "3", "4"};
+	
 
-	res = pthread_create(&thread1, NULL, func, (void*)strs1);
+	d1.strs = strs1;
+	d1.cnt = 4;
+
+	res = pthread_create(&thread1, NULL, func, &d1);
 	if (res != 0) {
 		perror("create 1 error");
 		exit(1);
