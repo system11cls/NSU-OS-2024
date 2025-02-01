@@ -10,11 +10,9 @@ typedef struct data {
 data d1;
 
 void* func(void *param) {
-	int it = 0;
-	data* d = param;
-	for (int i = 0; i < d->cnt; i++) {
-		printf("%s\n", d->strs[i]);
-	}
+	
+	printf("%s\n", param);
+	
 
 	return NULL;
 }
@@ -30,7 +28,7 @@ int main() {
 	d1.strs = strs1;
 	d1.cnt = 4;
 
-	res = pthread_create(&thread1, NULL, func, &d1);
+	res = pthread_create(&thread1, NULL, func, "abc");
 	if (res != 0) {
 		perror("create 1 error");
 		exit(1);
