@@ -5,18 +5,18 @@
 #include "unistd.h"
 
 
-void cleanup() {
-	fprintf(stderr, "CleanUp handler");
+void cleanup(void *args) {
+	puts(args);
 }
 
-void* thread_funk() {
-	pthread_cleanup_push(cleanup, NULL);
+void* thread_funk(void *args) {
+	pthread_cleanup_push(cleanup, "CleanupHandler");
 
-	for (long long i = 0;; i++) {
-		printf("%lld\n", i);
+	for (;;) {
+		puts(args);
 	}
 
-	pthread_cleanup_pop(1);
+	pthread_cleanup_pop(0);
 
 	pthread_exit(NULL);
 }
@@ -39,9 +39,8 @@ int main() {
 		handler("attr_init", checkRes);
 	}
 
-	int arg = 0;
 
-	checkRes = pthread_create(&thread, &attr, thread_funk, (void*)arg);
+	checkRes = pthread_create(&thread, &attr, thread_funk, "Thread");
 	if (checkRes != 0) {
 		handler("create", checkRes);
 	}
